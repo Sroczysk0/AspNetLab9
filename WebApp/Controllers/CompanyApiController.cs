@@ -18,7 +18,7 @@ public class CompanyApiController : ControllerBase
     {
         return Ok(
             _context.ProductionCompanies
-                .Where(m => m.CompanyName.ToLower().Contains(fragment.ToLower()))
+                .Where(m => m.CompanyName != null && m.CompanyName.ToLower().Contains(fragment.ToLower()))
                 .AsTracking()
                 .AsEnumerable()
         );
