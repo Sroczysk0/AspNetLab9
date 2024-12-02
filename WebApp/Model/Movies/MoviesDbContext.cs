@@ -52,7 +52,7 @@ public partial class MoviesDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("data source=c:\\Data\\movies.db");
+        => optionsBuilder.UseSqlite("data source = C:\\data\\movies.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -243,8 +243,9 @@ public partial class MoviesDbContext : DbContext
         modelBuilder.Entity<MovieCompany>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("movie_company");
+                .HasKey(e => new { CompanyId = e.CompanyId, MovieId = e.MovieId });
+                
+                entity.ToTable("movie_company");
 
             entity.Property(e => e.CompanyId)
                 .HasDefaultValueSql("NULL")
